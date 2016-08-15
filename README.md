@@ -30,6 +30,7 @@ element with given id. The parameters are :-
 </pre>
 
 <h2>parameters argument</h2>
+<p> This is an optional argument. If skipped, all values will be set to defaults.<p>
 <table width="100%">
 <thead>
 <tr>
@@ -96,7 +97,7 @@ element with given id. The parameters are :-
 </table>
 
 <h2>data argument</h2>
-<p> The data argument should be a javascript array with JSON objects with following options :-</p>
+<p> This is a required argument. The data argument should be a javascript array with JSON objects with following options :-</p>
 <table>
 <thead>
 <tr>
