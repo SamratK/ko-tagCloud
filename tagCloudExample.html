@@ -1,0 +1,115 @@
+<!--This file is an example created by SamratK (https://github.com/SamratK/) to demonstrate the usage of tagCloud.js -->
+<html>
+<head>
+<script type="text/javascript" src="./knockout-3.4.0.js"></script>
+<script type="text/javascript" src="./tagCloud.js"></script>
+</head>
+<body>
+<h1 align="center">Tag Cloud Example </h1><br/>
+<table>
+  <tr>
+    <td>
+<div style="display:inline-block;min-height:80vh;min-width:60vw;background-color:cyan;">
+  <br/>
+  <h2 align="center"><span data-bind="text : content"></span></h2>
+  <br/>
+  <p><span id="contentElem"></span></p>
+</div>
+</td>
+<td valign="top">
+<div>
+<div id="tagCloud" data-bind="tagCloud : getCloudData" style="display:inline-block;width:30%;">
+  <p> If you see this text then there is <br/>issue with code or the browser doesnt support svg!</p>
+</div>
+<p> Update cloud :- </p>
+<p><label for="addItem">&nbsp;Text&nbsp;&nbsp;</label><input id="itemText" type="text"/></p>
+<p><label for="addItem">&nbsp;URL&nbsp;&nbsp;</label><input id="itemUrl" type="text"/></p>
+<p><label for="addItem">&nbsp;Weightage&nbsp;&nbsp;</label><input id="itemWeightage" type="text"/></p>
+<input type="button" data-bind="click : updateCloud" value="Add"></input>&nbsp;
+<input type="button" data-bind="click : updateCloud" value="Update"></input>&nbsp;
+<input type="button" data-bind="click : updateCloud" value="Delete"></input>
+</div>
+</td>
+</tr>
+</table>
+
+
+<script type="text/javascript">
+function tagCloudViewModel(){
+var self = this;
+self.content = ko.observable('Main');
+var cloudData = ko.observableArray([
+{'textContent':'Facebook','url':'http://www.facebook.com','weightage':"1", 'fill':'#0000FF'},
+{'textContent':'Twitter','url':'http://www.twitter.com','weightage':"2", 'font-family':'Impact'},
+{'textContent':'KnockoutJS','url':'http://www.knockoutjs.com','weightage':"2.4"},
+{'textContent':'AngularJS','url':'http://www.angularjs.com','weightage':"2.9"},
+{'textContent':'Google','url':'http://www.google.com','weightage':"1.5"},
+{'textContent':'Wikipedia','onclick':'setContent','weightage':"2"},
+{'textContent':'YouTube','ko_onclick':'elementClickHandler','weightage':"3"},
+{'textContent':'Gmail','weightage':"0.3", 'ko_onclick':'elementClickHandler'}]);
+
+self.getCloudData = ko.computed(function(){
+//Can get data from server.
+return cloudData();
+});
+
+self.updateCloud = function(data,event){
+var action = event.target.value;
+
+if(action==='Add'){
+cloudData.push({
+'textContent':document.getElementById('itemText').value,
+'url':document.getElementById('itemUrl').value,
+'weightage':document.getElementById('itemWeightage').value});
+
+}else if(action==='Update'){
+  var text = document.getElementById('itemText').value;
+  for(var i=0;i<cloudData().length;i++){
+  if(cloudData()[i].textContent===text){
+    var elem = cloudData.splice(i,1);
+    elem.textContent = document.getElementById('itemText').value;
+    elem.url = document.getElementById('itemUrl').value;
+    elem.weightage = document.getElementById('itemWeightage').value;
+    cloudData.push(elem);
+    break;
+   }
+  }
+}else if(action==='Delete'){
+  var text = document.getElementById('itemText').value;
+  for(var i=0;i<cloudData().length;i++){
+  if(cloudData()[i].textContent===text){
+    cloudData.splice(i,1);
+    break;
+   }
+  }
+}
+};
+
+self.elementClickHandler = function (data,event){
+var value = event.target.textContent;
+self.content(value);
+};
+}
+
+
+ko.bindingHandlers.tagCloud = {
+    update: function(element, valueAccessor, allBindings) {
+        var dataWrapped = valueAccessor();
+        var data = ko.unwrap(dataWrapped);
+        //Call the TagCloud function to generate the tag cloud using the data.
+        //Every time the data changes or property of any data element changes, the tag cloud is recreated
+        //so as to avoid any misalignments of the text elements in the bounding container. Also if the browser window is resized
+        //then the also TagCloud to be recreated to be responsive.
+        var parameters = {'bgColor':'#F0FFF0', 'fill':'rgb(128,0,0)'};//Property settings for all elements in the tag cloud.
+        TagCloud(element.id,data,parameters);
+    }
+};
+ko.applyBindings(new tagCloudViewModel());
+
+function setContent(text, element){
+document.getElementById('contentElem').innerHTML = 'This text is set by non-knockout function :- '+text;
+}
+
+</script>
+</body>
+</html>
