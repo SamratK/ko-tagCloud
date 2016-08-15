@@ -137,8 +137,7 @@ cloudElement = {......."textContent":"GitHub" ,
   "onclick" : "setContentOfPage"........};
 
 //the text element in tag cloud will be created as -
-<<span>
-text ..... onclick="setContentOfPage('GitHub',this);"
+<<span>text ..... onclick="setContentOfPage('GitHub',this);"
 ......>
   GitHub <</span>/text>
 </pre>
@@ -176,8 +175,7 @@ cloudElement = {
 
 //the text element in tag cloud will be 
 //created as -
-<<span>
-text ..... data-bind="click : setContentOfPage"
+<<span>text ..... data-bind="click : setContentOfPage"
 ......>
   GitHub <</span>/text>
 </pre>
@@ -188,7 +186,10 @@ which the clicked element can be identified.
 </td>
 </tr>
 </table>
-
+<h2>Screenshot</h2>
+<p>Current style of the tag cloud is rectangular. The elements are sorted in descending order of their weightages.</p>
+<img src="./tagCloudExampleImg2.png" />
+<img src="./tagCloudExampleImg1.png" />
 <h2> Notes </h2>
 <ul>
 <li> As mentioned above, the tag cloud generator code optimizes the space. Example, let the bounds be given as width : 400 and height : 400. And the text elements are given with respective weightages. The code will create the tag elements with SVG texts. After creating, the code will check if there is extra space around the tag elements and then re-sizes the SVG container accordingly by adjusting the height and width attributes of SVG element. So the given bounds will be taken as maximum bounds.
@@ -196,6 +197,5 @@ If the user wants the tag cloud to be of fixed bounds on the page, then one can 
 <li>The weightages of elements based on which their size depends can be adjusted to match the requirement of the user. Optimum display for the elements on the page can be obtained by a little experimentation.</li>
 <li>If the page is required to follow a responsive design, which means that on re-sizing the browser, the tag cloud should also be re-sized then the user can have it handled in a function which can detect resize events and then call the TagCloud function to recreate the elements. User can have the weightages to be dynamically scaled as per the changed bounds so that all elements fit inside the container and get displayed properly.</li>
 </ul>
-
 <h2>LICENSE</h2>
 MIT License Copyright (c) 2016 SamratK
