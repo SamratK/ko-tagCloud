@@ -195,3 +195,6 @@ If the user wants the tag cloud to be of fixed bounds on the page, then one can 
 <li>The weightages of elements based on which their size depends can be adjusted to match the requirement of the user. Optimum display for the elements on the page can be obtained by a little experimentation.</li>
 <li>If the page is required to follow a responsive design, which means that on re-sizing the browser, the tag cloud should also be re-sized then the user can have it handled in a function which can detect resize events and then call the TagCloud function to recreate the elements. User can have the weightages to be dynamically scaled as per the changed bounds so that all elements fit inside the container and get displayed properly.</li>
 </ul>
+
+<h2>LICENSE</h2>
+MIT License Copyright (c) 2016 SamratK
