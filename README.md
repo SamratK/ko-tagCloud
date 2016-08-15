@@ -102,78 +102,88 @@ element with given id. The parameters are :-
 <tr>
 <th>Option</th>
 <th>Value</th>
-<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tr>
 <td>url</td>
 <td>href of a link. Eg. http://www.github.com</td>
-<td>-</td>
-<td>With the value of url an anchor element will be created around the given 
-text of the could element. On clicking the element, the page will navigate 
-to the given url.</td>
+<td>With the value of url an anchor element will be created around
+the given text of the could element. On clicking the element, the
+page will navigate to the given url.</td>
 </tr>
 <tr>
 <td>target</td>
-<td>Target of the anchor element. Eg. _blank, _self, _parent etc.
-<td>_top</td>
-<td>The url will be loaded as per the target value. This option is only used 
-when url option is set.</td>
+<td>Target of the anchor element. Eg. _blank, _self, _parent etc. Default value is _top.
+<td>The url will be loaded as per the target value. This option
+ is only used when url option is set.</td>
 </tr>
 <tr>
 <td>onclick</td>
-<td>Name of the function to be called, on clicking the tag cloud element.
-<td>-</td>
-<td>This option is to be used when url option is not set. Instead of loading
- a page, the click action will 
-be sent to a function. Eg.
+<td>Name of the function to be called, on clicking the 
+tag cloud element.
+<td>This option is to be used when url option is not set.
+Instead of loading a page, the click action will be sent
+to a function.
+Eg.
 <pre>
 function setContentOfPage(){
-//Code to set content of page based on clicked tag cloud element.
+//Code to set content of page based on 
+//clicked tag cloud element.
 }
 //cloud element JSON inside array should be
 cloudElement = {......."textContent":"GitHub" , 
   "onclick" : "setContentOfPage"........};
 
 //the text element in tag cloud will be created as -
-<<span>text ..... onclick="setContentOfPage('GitHub',this);" ......>
+<<span>
+text ..... onclick="setContentOfPage('GitHub',this);"
+......>
   GitHub <</span>/text>
 </pre>
-As given above, the function with given name will be called by passing the 
-textContent of that element and also the text element itself so that other 
+As given above, the function with given name will be 
+called by passing the textContent of that element 
+and also the text element itself so that other 
 properties of it can be read.
 </td>
 </tr>
 <tr>
 <td><b>ko_onclick</b></td>
-<td>Name of the knockout function to be called, on clicking the tag cloud 
-element.</td>
-<td>-</td>
-<td>This option is to be used when url option is not set. Instead of loading 
-a page, the click action will be sent to a knockout function. Eg.
+<td>Name of the knockout function to be called,
+on clicking the tag cloud element.</td>
+<td>This option is to be used when url option is 
+not set. Instead of loading a page, the click action
+will be sent to a knockout function.
+Eg.
 <pre>
 function tagCloudViewModel (){
 var self = this;
 ........
 self.setContentOfPage = function(){
-  //Code to set content of page based on clicked tag cloud element.
+  //Code to set content of page based 
+  //on clicked tag cloud element.
   }
 .......
 }
 ko.applyBindings(new tagCloudViewModel());
 
 //cloud element inside data array should be
-cloudElement = {......."textContent":"GitHub" , 
-  <b>"ko_onclick"</b> : "setContentOfPage"........};
+cloudElement = {
+......."textContent":"GitHub" , 
+  <b>"ko_onclick"</b> : "setContentOfPage"
+  ........};
 
-//the text element in tag cloud will be created as -
-<<span>text ..... data-bind="click : setContentOfPage" ......>
+//the text element in tag cloud will be 
+//created as -
+<<span>
+text ..... data-bind="click : setContentOfPage"
+......>
   GitHub <</span>/text>
 </pre>
-As given above, a knockout click binding will be created with the given
-function name. Knockout will call the function with data and event 
-arguments from which the clicked element can be identified.
+As given above, a knockout click binding will be 
+created with the given function name. Knockout will 
+call the function with data and event arguments from 
+which the clicked element can be identified.
 </td>
 </tr>
 </table>
