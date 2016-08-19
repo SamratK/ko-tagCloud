@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2016 Samrat K
+Copyright (c) 2016 SamratK
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -133,28 +133,35 @@ domTagElements.sort(function(elem1,elem2){
 return elem1.getAttribute('font-size') > elem2.getAttribute('font-size')? -1:1;
 });
 
-var totalRows = 0;
-var verticalSpacing = 0;
-var horizontalSpacing = 10;
-
-//Re-arranging the elements in rows and columns.
+var prevWidth = 0;
+var maxX = 0,maxY=0;
+//Re-arranging the elements in rows and cloumns.
 for(var j=0;j<domTagElements.length;j++){
 element = domTagElements[j];
+var eleWidth = element.getBBox().width;
 
-if(x > elemsInRow * elemMaxWidth){
-  x = horizontalSpacing;
-  y= y + 10+ element.getBBox().height;
-  totalRows++;
+if(prevWidth + eleWidth + 10 > width-10){
+//Go to next line
+y = y + elemMaxHeight;
+x=10;
+}else{
+x = prevWidth + 10;
 }
 
-element.setAttribute('x',x  +  (elemMaxWidth - element.getBBox().width)/2);
+element.setAttribute('x',x);
 element.setAttribute('y',y);
-x = x+horizontalSpacing+elemMaxWidth;
+prevWidth = x + eleWidth;
+
+if(maxX < prevWidth){
+  maxX = prevWidth;
 }
+}
+maxY = y;
 
 //Optimizing the bounding box space.
-svgBg.setAttribute('width',(elemMaxWidth + 20)*elemsInRow);
+svgBg.setAttribute('width',maxX + 10);
 svgBg.setAttribute('height',y+ elemMaxHeight/2);
-svg.setAttribute('width',(elemMaxWidth + 20)*elemsInRow);
-svg.setAttribute('height',y+ elemMaxHeight/2);
+svg.setAttribute('width', maxX + 10);
+svg.setAttribute('height',maxY+ elemMaxHeight/2);
+
 }
